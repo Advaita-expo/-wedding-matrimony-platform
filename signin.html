@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - The Wedding Company Matrimony</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--light-color) 0%, var(--royal-cream) 100%);
+    min-height: 100vh;
+    position: relative;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-color);
+}
+
+.signin-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 40px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 40px rgba(196, 30, 58, 0.15);
+}
+
+.signin-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.signin-header h1 {
+    color: var(--heading-color);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.signin-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.remember-forgot a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.signin-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.signin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(196, 30, 58, 0.3);
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-light);
+}
+
+.signup-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.divider {
+    text-align: center;
+    margin: 25px 0;
+    color: #ccc;
+}
+
+.social-login {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.social-btn {
+    padding: 10px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.social-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 40px 20px;
+    margin-top: 60px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .signin-container {
+        margin: 40px;
+        padding: 25px;
+    }
+
+    .signin-header h1 {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heart"></i> The Wedding Company
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Signin Form -->
+    <div class="signin-container">
+        <div class="signin-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to your matrimony account</p>
+        </div>
+
+        <form id="signinForm" onsubmit="handleSignin(event)">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+
+            <div class="remember-forgot">
+                <label style="display: flex; align-items: center; gap: 8px; font-weight: 500; margin: 0;">
+                    <input type="checkbox" name="remember" style="width: auto;">
+                    Remember me
+                </label>
+                <a href="#forgot">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="signin-btn">Sign In</button>
+        </form>
+
+        <div class="divider">━━━━━━ OR ━━━━━━</div>
+
+        <div class="social-login">
+            <button class="social-btn" onclick="alert('Google login not configured yet')">
+                <i class="fab fa-google"></i> Google
+            </button>
+            <button class="social-btn" onclick="alert('Facebook login not configured yet')">
+                <i class="fab fa-facebook"></i> Facebook
+            </button>
+        </div>
+
+        <div style="background: #f0f0f0; padding: 15px; border-radius: 6px; margin-top: 20px; text-align: center;">
+            <strong style="color: #c41e3a;">🔐 Admin Login Credentials:</strong>
+            <p style="margin: 8px 0; font-size: 0.9rem;">Email: <code style="background: white; padding: 4px 8px; border-radius: 3px;">admin@matrimony.com</code></p>
+            <p style="margin: 8px 0; font-size: 0.9rem;">Password: <code style="background: white; padding: 4px 8px; border-radius: 3px;">admin123</code></p>
+        </div>
+
+        <div class="signup-link">
+            Don't have an account? <a href="signup.html">Sign Up Now</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 The Wedding Company - Matrimony Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function handleSignin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Check if it's an admin login using email
+            if (email === 'admin@matrimony.com' && password === 'admin123') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('adminUsername', 'admin');
+                localStorage.setItem('loginTime', new Date().getTime());
+                alert('Welcome to Admin Dashboard!');
+                window.location.href = 'admin/dashboard.html';
+                return;
+            }
+            
+            // Check if it's a regular user login
+            const storedUser = localStorage.getItem('matrimony_user');
+            
+            if (!storedUser) {
+                alert('No account found. Please sign up first.');
+                window.location.href = 'signup.html';
+                return;
+            }
+            
+            const user = JSON.parse(storedUser);
+            
+            if (user.email === email && user.password === password) {
+                localStorage.setItem('matrimony_logged_in', 'true');
+                localStorage.setItem('matrimony_current_user', email);
+                alert('Welcome back, ' + user.fullname + '!');
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid email or password!');
+            }
+        }
+    </script>
+</body>
+</html>

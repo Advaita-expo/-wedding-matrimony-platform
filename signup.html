@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - The Wedding Company Matrimony</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--light-color) 0%, var(--royal-cream) 100%);
+    min-height: 100vh;
+    position: relative;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-color);
+}
+
+.signup-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 40px rgba(196, 30, 58, 0.15);
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.signup-header h1 {
+    color: var(--heading-color);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.signup-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.signup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(196, 30, 58, 0.3);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-light);
+}
+
+.login-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.benefits {
+    background: var(--light-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-top: 30px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.benefits h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.benefits ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.benefits li {
+    padding: 8px 0;
+    color: var(--text-light);
+    padding-left: 25px;
+    position: relative;
+}
+
+.benefits li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 40px 20px;
+    margin-top: 60px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .signup-container {
+        margin: 20px;
+        padding: 25px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .signup-header h1 {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heart"></i> The Wedding Company
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Your Profile</h1>
+            <p>Find your perfect match today</p>
+        </div>
+
+        <form id="signupForm" onsubmit="handleSignup(event)">
+            <div class="form-group">
+                <label for="fullname">Full Name *</label>
+                <input type="text" id="fullname" name="fullname" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="gender">Gender *</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age *</label>
+                    <input type="text" id="age" name="age" required placeholder="Enter your age">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="text" id="phone" name="phone" required placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required placeholder="Enter your city">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Create Password *</label>
+                <input type="password" id="password" name="password" required placeholder="Enter a strong password">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password *</label>
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder="Re-enter your password">
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms" style="margin: 0;">I agree to the <a href="#" style="color: var(--primary-color);">Terms & Conditions</a></label>
+            </div>
+
+            <button type="submit" class="signup-btn">Create My Account</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="signin.html">Sign In</a>
+        </div>
+
+        <div class="benefits">
+            <h3><i class="fas fa-star"></i> Your Benefits</h3>
+            <ul>
+                <li>100% Verified Profiles</li>
+                <li>Smart Matchmaking Algorithm</li>
+                <li>Horoscope Compatibility Analysis</li>
+                <li>Background Verification</li>
+                <li>24/7 Customer Support</li>
+                <li>Privacy & Security Guaranteed</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 The Wedding Company - Matrimony Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function handleSignup(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Collect form data
+            const formData = {
+                fullname: document.getElementById('fullname').value,
+                gender: document.getElementById('gender').value,
+                age: document.getElementById('age').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                city: document.getElementById('city').value,
+                dob: document.getElementById('dob').value,
+                password: password
+            };
+            
+            // Store in localStorage (for demo purposes)
+            localStorage.setItem('matrimony_user', JSON.stringify(formData));
+            
+            alert('Account created successfully! Please sign in.');
+            window.location.href = 'signin.html';
+        }
+    </script>
+</body>
+</html>

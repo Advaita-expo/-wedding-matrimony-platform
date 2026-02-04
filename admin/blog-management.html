@@ -6,6 +6,11 @@
     <title>Blog Management - The Wedding Company Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">
+    <style>
+        #commonNavbar {
+            margin-bottom: 0;
+        }
+    </style>
     <script src="auth.js"></script>
     <script src="data-store.js"></script>
     <style>
@@ -292,6 +297,9 @@
     </style>
 </head>
 <body>
+    <!-- Common Admin Navigation -->
+    <div id="commonNavbar"></div>
+
     <div class="dashboard">
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -703,6 +711,15 @@
 
         // Load posts on page load
         loadBlogPosts();
+
+        // Load common navbar
+        fetch('common-navbar.html')
+            .then(response => response.text())
+            .then(html => {
+                const navContainer = document.getElementById('commonNavbar');
+                navContainer.innerHTML = html;
+                initNavbar();
+            });
     </script>
 </body>
 </html>
