@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - The Wedding Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+.emphasis-blue {
+    color: var(--accent-blue);
+    font-style: italic;
+    font-weight: 500;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: #fff;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(201, 169, 97, 0.02) 10px,
+            rgba(201, 169, 97, 0.02) 20px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+.page-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.page-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-content {
+    padding: 60px 20px;
+}
+
+.services-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.service-full-card {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-full-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.service-full-card-content {
+    padding: 25px;
+}
+
+.service-full-card h3 {
+    color: var(--heading-color);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.service-full-card p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.view-all-btn {
+    display: inline-block;
+    background: var(--accent-gold);
+    color: white;
+    padding: 12px 30px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.view-all-btn:hover {
+    background: #c89866;
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 40px 20px 20px;
+    border-top: 4px solid var(--royal-gold);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--royal-gold), transparent, var(--royal-gold));
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--accent-gold);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.footer-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.footer-section button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    text-align: center;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .page-hero h1 {
+        font-size: 1.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-heart"></i> The Wedding Company
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html" class="active">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our <span class="emphasis-blue">Matrimony</span> Services</h1>
+            <p>Comprehensive solutions to find your <span class="emphasis-blue">perfect match</span></p>
+        </div>
+    </section>
+
+    <!-- Services Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="services-full">
+                <!-- Service 1: Smart Matchmaking -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #FF69B4, #FFB6D9); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Smart Matchmaking Algorithm</h3>
+                        <p>Our advanced AI-powered matching system analyzes compatibility factors to connect you with your perfect partner. We consider values, lifestyle, education, career goals, and personal preferences.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Advanced Compatibility Analysis</li>
+                            <li>Personalized Profile Matching</li>
+                            <li>Lifestyle & Values Assessment</li>
+                            <li>Regular Match Recommendations</li>
+                            <li>Direct Profile Access</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 2: Background Verification -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #FFD700, #FFEB3B); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Comprehensive Background Verification</h3>
+                        <p>We conduct thorough background checks to ensure complete safety and authenticity. Our verification process includes identity, employment, education, and family background checks.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Identity & Document Verification</li>
+                            <li>Employment Status Confirmation</li>
+                            <li>Educational Credentials Check</li>
+                            <li>Family Background Investigation</li>
+                            <li>Criminal Record Screening</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 3: Horoscope Compatibility -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #FF69B4, #FF1493); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Vedic Horoscope Analysis & Kundli Matching</h3>
+                        <p>Get expert astrological analysis and Kundli matching by certified Vedic astrologers. We provide detailed horoscope compatibility reports considering planetary positions and birth charts.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Birth Chart Analysis</li>
+                            <li>Kundli Matching & Compatibility</li>
+                            <li>Planetary Influence Assessment</li>
+                            <li>Auspicious Dates Selection</li>
+                            <li>Personalized Astrological Reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 4: Relationship Counseling -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #FF6347, #FF4500); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Professional Relationship Counseling</h3>
+                        <p>Our expert counselors provide guidance throughout your matrimony journey. From initial connection to building a strong relationship foundation, we're here to help.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Pre-Match Counseling</li>
+                            <li>Compatibility Discussion Sessions</li>
+                            <li>Relationship Building Guidance</li>
+                            <li>Family Communication Support</li>
+                            <li>Expert Matrimony Advisors</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 5: Profile Creation -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #4169E1, #1E90FF); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Professional Profile Creation</h3>
+                        <p>We help you create a compelling and authentic profile that showcases your best qualities. Professional photo sessions and personalized write-ups to attract the right matches.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Professional Photography Services</li>
+                            <li>Profile Write-up Assistance</li>
+                            <li>Personal Branding Consultation</li>
+                            <li>Profile Optimization</li>
+                            <li>Regular Profile Updates</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 6: Premium Membership -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #9932CC, #BA55D3); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Premium Membership Plans</h3>
+                        <p>Unlock exclusive features and benefits with our premium membership. Get priority matching, unlimited messaging, and direct contact with suitable matches.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Priority Match Recommendations</li>
+                            <li>Unlimited Profile Views</li>
+                            <li>Direct Messaging Feature</li>
+                            <li>Advanced Search Filters</li>
+                            <li>Priority Customer Support</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 7: Matrimony Events -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #FF8C00, #FFA500); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Matrimony Meetup Events</h3>
+                        <p>Participate in our exclusive matrimony events where you can meet potential matches in a safe and comfortable environment. Regular social gatherings for singles.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Exclusive Matrimony Meet-ups</li>
+                            <li>Speed Dating Events</li>
+                            <li>Community Gatherings</li>
+                            <li>Interactive Sessions</li>
+                            <li>Networking Opportunities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 8: Privacy & Security -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #20B2AA, #00CED1); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Privacy & Security Assurance</h3>
+                        <p>Your privacy is our top priority. We use advanced encryption and privacy controls to ensure your personal information is completely secure and never shared without consent.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Encrypted Data Protection</li>
+                            <li>Privacy Controls & Settings</li>
+                            <li>Profile Visibility Management</li>
+                            <li>Safe Messaging System</li>
+                            <li>Complaint & Resolution Team</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service 9: Engagement Support -->
+                <div class="service-full-card">
+                    <div style="background: linear-gradient(135deg, #DC143C, #FF69B4); height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <div class="service-full-card-content">
+                        <h3>Engagement Planning & Support</h3>
+                        <p>Once you've found your match, we help plan your engagement and provide support for the next steps toward marriage.</p>
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Engagement Planning Assistance</li>
+                            <li>Family Introduction Support</li>
+                            <li>Wedding Planning Referral</li>
+                            <li>Post-Match Counseling</li>
+                            <li>Continued Support Services</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Inclusions -->
+            <div style="margin-top: 80px; background: var(--light-color); padding: 40px; border-radius: 8px;">
+                <h2 style="text-align: center; margin-bottom: 30px;">What's Included in Our Matrimony Services</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> 24/7 Support</h4>
+                        <p>Round-the-clock customer support for all your queries and concerns</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Verified Profiles</h4>
+                        <p>100% verified members through background checks and authentication</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Smart Matching</h4>
+                        <p>AI-powered algorithm for accurate compatibility matching</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Privacy First</h4>
+                        <p>Complete confidentiality with advanced encryption and privacy controls</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Expert Astrology</h4>
+                        <p>Professional horoscope analysis and Kundli matching services</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Counseling Services</h4>
+                        <p>Professional guidance from experienced matrimony advisors</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 60px;">
+                <h2 style="margin-bottom: 20px;">Ready to Find Your Perfect Match?</h2>
+                <p style="margin-bottom: 30px; font-size: 1.1rem;">Join thousands of happy couples who found their soulmates through our verified matchmaking platform</p>
+                <a href="contact.html" class="view-all-btn" style="padding: 15px 40px; font-size: 1.1rem;">Register Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Wedding Company</h3>
+                    <p>Premium matrimony services with smart matchmaking, background verification, and horoscope compatibility analysis.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: info@theweddingcompany.com</p>
+                    <p>Phone: +91 (800) 123-4567</p>
+                    <p>Address: 123 Wedding Plaza, Event City, EC 12345</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Wedding Company - Matrimony Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

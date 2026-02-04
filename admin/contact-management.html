@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Management - The Wedding Company Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #c41e3a;
+            --secondary-color: #e8b4ba;
+            --dark-color: #7a1428;
+            --light-color: #faf8f8;
+            --text-color: #3d3d3d;
+            --accent-gold: #d4a574;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--dark-color), var(--primary-color));
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-to-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-to-dashboard:hover {
+            opacity: 0.8;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--dark-color);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--accent-gold);
+            color: white;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .filters-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .contacts-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f9f9f9;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-new {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-contacted {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .status-closed {
+            background: #e8f5e8;
+            color: #388e3c;
+        }
+
+        .priority-high {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .priority-medium {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .priority-low {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-view {
+            background: #2196f3;
+            color: white;
+        }
+
+        .btn-reply {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .contact-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-group {
+            margin-bottom: 1rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: var(--text-color);
+        }
+
+        .reply-section {
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .filters-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .table-wrapper {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="back-to-dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <h2>Contact Management</h2>
+                <p>Manage customer inquiries</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Contact Management</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <i class="fas fa-download"></i>
+                        Export CSV
+                    </button>
+                    <button class="btn btn-primary" id="refreshBtn">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Statistics -->
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-number">47</div>
+                        <div class="stat-label">Total Inquiries</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">New</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">25</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Closed</div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-section">
+                    <h3>Filters</h3>
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <label>Status:</label>
+                            <select id="statusFilter">
+                                <option value="">All Status</option>
+                                <option value="new">New</option>
+                                <option value="contacted">Contacted</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Priority:</label>
+                            <select id="priorityFilter">
+                                <option value="">All Priorities</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Date From:</label>
+                            <input type="date" id="dateFromFilter">
+                        </div>
+                        <div class="filter-group">
+                            <label>Date To:</label>
+                            <input type="date" id="dateToFilter">
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-secondary" id="clearFilters">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contacts Table -->
+                <div class="contacts-table">
+                    <div class="table-header">
+                        <h3>Contact Inquiries</h3>
+                        <div>
+                            <span id="totalCount">47 inquiries</span>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Wedding Date</th>
+                                    <th>Budget Range</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Received</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contactsTableBody">
+                                <tr>
+                                    <td>Sarah Johnson</td>
+                                    <td>sarah.j@email.com</td>
+                                    <td>June 15, 2026</td>
+                                    <td>$15,000 - $20,000</td>
+                                    <td><span class="status-badge status-new">New</span></td>
+                                    <td><span class="priority-high">High</span></td>
+                                    <td>Jan 30, 2026</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-view btn-small view-contact" data-id="1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-reply btn-small reply-contact" data-id="1">
+                                                <i class="fas fa-reply"></i>
+                                            </button>
+                                            <button class="btn btn-delete btn-small delete-contact" data-id="1">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Michael & Emily Chen</td>
+                                    <td>emily.chen@email.com</td>
+                                    <td>August 20, 2026</td>
+                                    <td>$25,000 - $30,000</td>
+                                    <td><span class="status-badge status-contacted">Contacted</span></td>
+                                    <td><span class="priority-medium">Medium</span></td>
+                                    <td>Jan 28, 2026</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-view btn-small view-contact" data-id="2">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-reply btn-small reply-contact" data-id="2">
+                                                <i class="fas fa-reply"></i>
+                                            </button>
+                                            <button class="btn btn-delete btn-small delete-contact" data-id="2">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Jessica Williams</td>
+                                    <td>jessica.w@email.com</td>
+                                    <td>September 10, 2026</td>
+                                    <td>$10,000 - $15,000</td>
+                                    <td><span class="status-badge status-closed">Closed</span></td>
+                                    <td><span class="priority-low">Low</span></td>
+                                    <td>Jan 25, 2026</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-view btn-small view-contact" data-id="3">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-reply btn-small reply-contact" data-id="3">
+                                                <i class="fas fa-reply"></i>
+                                            </button>
+                                            <button class="btn btn-delete btn-small delete-contact" data-id="3">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Contact Details Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contact Details</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="contact-details" id="contactDetails">
+                <!-- Contact details will be populated here -->
+            </div>
+            <div class="reply-section">
+                <h3>Send Reply</h3>
+                <form id="replyForm">
+                    <div class="form-group">
+                        <label for="replySubject">Subject</label>
+                        <input type="text" id="replySubject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="replyMessage">Message</label>
+                        <textarea id="replyMessage" name="message" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactStatus">Update Status</label>
+                        <select id="contactStatus" name="status">
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+                        <button type="button" class="btn btn-secondary" id="cancelReply">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Reply
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication
+        if (localStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Sample contact data
+        const contactsData = [
+            {
+                id: 1,
+                name: 'Sarah Johnson',
+                email: 'sarah.j@email.com',
+                phone: '+1 (555) 123-4567',
+                weddingDate: 'June 15, 2026',
+                guestCount: '120',
+                venue: 'Garden Wedding',
+                budgetRange: '$15,000 - $20,000',
+                services: 'Full Planning, Photography',
+                message: 'Hi! I\'m getting married next June and would love to discuss your full planning package. We\'re looking for someone to help coordinate our garden wedding.',
+                status: 'new',
+                priority: 'high',
+                received: 'Jan 30, 2026'
+            },
+            {
+                id: 2,
+                name: 'Michael & Emily Chen',
+                email: 'emily.chen@email.com',
+                phone: '+1 (555) 987-6543',
+                weddingDate: 'August 20, 2026',
+                guestCount: '200',
+                venue: 'Ballroom',
+                budgetRange: '$25,000 - $30,000',
+                services: 'Planning, Catering, Flowers',
+                message: 'We\'re planning our dream wedding and would love to meet with you to discuss our requirements for a ballroom reception.',
+                status: 'contacted',
+                priority: 'medium',
+                received: 'Jan 28, 2026'
+            },
+            {
+                id: 3,
+                name: 'Jessica Williams',
+                email: 'jessica.w@email.com',
+                phone: '+1 (555) 456-7890',
+                weddingDate: 'September 10, 2026',
+                guestCount: '80',
+                venue: 'Beach Wedding',
+                budgetRange: '$10,000 - $15,000',
+                services: 'Photography, Flowers',
+                message: 'Looking for photography services for our intimate beach wedding. Can you please share your packages?',
+                status: 'closed',
+                priority: 'low',
+                received: 'Jan 25, 2026'
+            }
+        ];
+
+        // Modal functionality
+        const contactModal = document.getElementById('contactModal');
+        const modalClose = document.getElementById('modalClose');
+        const cancelReply = document.getElementById('cancelReply');
+
+        modalClose.addEventListener('click', () => {
+            contactModal.classList.remove('active');
+        });
+
+        cancelReply.addEventListener('click', () => {
+            contactModal.classList.remove('active');
+        });
+
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) {
+                contactModal.classList.remove('active');
+            }
+        });
+
+        // Contact actions
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.view-contact')) {
+                const contactId = e.target.closest('.view-contact').dataset.id;
+                viewContact(contactId);
+            }
+            
+            if (e.target.closest('.reply-contact')) {
+                const contactId = e.target.closest('.reply-contact').dataset.id;
+                replyContact(contactId);
+            }
+            
+            if (e.target.closest('.delete-contact')) {
+                const contactId = e.target.closest('.delete-contact').dataset.id;
+                deleteContact(contactId);
+            }
+        });
+
+        function viewContact(id) {
+            const contact = contactsData.find(c => c.id == id);
+            if (!contact) return;
+
+            const contactDetails = document.getElementById('contactDetails');
+            contactDetails.innerHTML = `
+                <div class="detail-group">
+                    <div class="detail-label">Name:</div>
+                    <div class="detail-value">${contact.name}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Email:</div>
+                    <div class="detail-value">${contact.email}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Phone:</div>
+                    <div class="detail-value">${contact.phone}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Wedding Date:</div>
+                    <div class="detail-value">${contact.weddingDate}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Guest Count:</div>
+                    <div class="detail-value">${contact.guestCount} guests</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Venue Type:</div>
+                    <div class="detail-value">${contact.venue}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Budget Range:</div>
+                    <div class="detail-value">${contact.budgetRange}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Services of Interest:</div>
+                    <div class="detail-value">${contact.services}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Message:</div>
+                    <div class="detail-value">${contact.message}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Status:</div>
+                    <div class="detail-value">${contact.status}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Priority:</div>
+                    <div class="detail-value">${contact.priority}</div>
+                </div>
+                <div class="detail-group">
+                    <div class="detail-label">Received:</div>
+                    <div class="detail-value">${contact.received}</div>
+                </div>
+            `;
+
+            contactModal.classList.add('active');
+        }
+
+        function replyContact(id) {
+            const contact = contactsData.find(c => c.id == id);
+            if (!contact) return;
+
+            document.getElementById('replySubject').value = `Re: Wedding Inquiry - ${contact.name}`;
+            document.getElementById('contactStatus').value = contact.status;
+
+            viewContact(id);
+        }
+
+        function deleteContact(id) {
+            if (confirm('Are you sure you want to delete this contact inquiry?')) {
+                // In a real application, send delete request to backend
+                const row = document.querySelector(`[data-id="${id}"]`).closest('tr');
+                row.remove();
+                alert('Contact inquiry deleted successfully!');
+            }
+        }
+
+        // Reply form submission
+        document.getElementById('replyForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real application, send the reply to backend
+            alert('Reply sent successfully!');
+            contactModal.classList.remove('active');
+        });
+
+        // Filter functionality
+        document.getElementById('clearFilters').addEventListener('click', () => {
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('priorityFilter').value = '';
+            document.getElementById('dateFromFilter').value = '';
+            document.getElementById('dateToFilter').value = '';
+            // Apply filters (reset to show all)
+        });
+
+        // Export functionality
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            alert('CSV export functionality would be implemented here');
+        });
+
+        // Refresh functionality
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - The Wedding Company Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #c41e3a;
+            --secondary-color: #e8b4ba;
+            --dark-color: #7a1428;
+            --light-color: #faf8f8;
+            --text-color: #3d3d3d;
+            --accent-gold: #d4a574;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--dark-color), var(--primary-color));
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-to-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-to-dashboard:hover {
+            opacity: 0.8;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--dark-color);
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .settings-tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .tab-button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .settings-content {
+            background: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+        }
+
+        .tab-panel {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .settings-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            margin: 0.5rem 0;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .color-picker {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-color);
+        }
+
+        .btn-secondary {
+            background: var(--accent-gold);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .backup-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .backup-info {
+            flex: 1;
+        }
+
+        .backup-date {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .backup-size {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .backup-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left: 4px solid #4caf50;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="back-to-dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <h2>Settings</h2>
+                <p>System configuration</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Settings</h1>
+            </header>
+
+            <div class="content">
+                <div class="settings-tabs">
+                    <button class="tab-button active" data-tab="general">
+                        <i class="fas fa-cog"></i> General
+                    </button>
+                    <button class="tab-button" data-tab="appearance">
+                        <i class="fas fa-palette"></i> Appearance
+                    </button>
+                    <button class="tab-button" data-tab="notifications">
+                        <i class="fas fa-bell"></i> Notifications
+                    </button>
+                    <button class="tab-button" data-tab="backup">
+                        <i class="fas fa-database"></i> Backup
+                    </button>
+                    <button class="tab-button" data-tab="security">
+                        <i class="fas fa-shield-alt"></i> Security
+                    </button>
+                </div>
+
+                <div class="settings-content">
+                    <!-- General Settings -->
+                    <div class="tab-panel active" id="general">
+                        <div class="settings-section">
+                            <h3 class="section-title">Site Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="siteName">Site Name</label>
+                                    <input type="text" id="siteName" value="The Wedding Company">
+                                </div>
+                                <div class="form-group">
+                                    <label for="siteTagline">Tagline</label>
+                                    <input type="text" id="siteTagline" value="Professional Wedding Planning Services">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="siteDescription">Site Description</label>
+                                <textarea id="siteDescription" rows="3">Creating magical wedding experiences with attention to every detail. Your dream wedding awaits.</textarea>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Contact Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="businessPhone">Business Phone</label>
+                                    <input type="tel" id="businessPhone" value="+1 (555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="businessEmail">Business Email</label>
+                                    <input type="email" id="businessEmail" value="info@theweddingcompany.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="businessAddress">Business Address</label>
+                                <textarea id="businessAddress" rows="2">123 Wedding Lane, Suite 100, City, State 12345</textarea>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Social Media</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="facebookUrl">Facebook URL</label>
+                                    <input type="url" id="facebookUrl" value="https://facebook.com/theweddingcompany">
+                                </div>
+                                <div class="form-group">
+                                    <label for="instagramUrl">Instagram URL</label>
+                                    <input type="url" id="instagramUrl" value="https://instagram.com/theweddingcompany">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pinterestUrl">Pinterest URL</label>
+                                    <input type="url" id="pinterestUrl" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="youtubeUrl">YouTube URL</label>
+                                    <input type="url" id="youtubeUrl" value="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save General Settings
+                        </button>
+                    </div>
+
+                    <!-- Appearance Settings -->
+                    <div class="tab-panel" id="appearance">
+                        <div class="settings-section">
+                            <h3 class="section-title">Color Scheme</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="primaryColor">Primary Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" id="primaryColor" value="#c41e3a">
+                                        <div class="color-preview" style="background-color: #c41e3a;"></div>
+                                        <span>#c41e3a</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="secondaryColor">Secondary Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" id="secondaryColor" value="#e8b4ba">
+                                        <div class="color-preview" style="background-color: #e8b4ba;"></div>
+                                        <span>#e8b4ba</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="accentColor">Accent Color</label>
+                                    <div class="color-picker">
+                                        <input type="color" id="accentColor" value="#d4a574">
+                                        <div class="color-preview" style="background-color: #d4a574;"></div>
+                                        <span>#d4a574</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fontFamily">Font Family</label>
+                                    <select id="fontFamily">
+                                        <option value="Arial">Arial</option>
+                                        <option value="Georgia">Georgia</option>
+                                        <option value="Times New Roman">Times New Roman</option>
+                                        <option value="Helvetica">Helvetica</option>
+                                        <option value="Roboto">Roboto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Logo & Branding</h3>
+                            <div class="form-group">
+                                <label for="logoUpload">Site Logo</label>
+                                <input type="file" id="logoUpload" accept="image/*">
+                            </div>
+                            <div class="form-group">
+                                <label for="faviconUpload">Favicon</label>
+                                <input type="file" id="faviconUpload" accept="image/*">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Appearance Settings
+                        </button>
+                    </div>
+
+                    <!-- Notifications Settings -->
+                    <div class="tab-panel" id="notifications">
+                        <div class="settings-section">
+                            <h3 class="section-title">Email Notifications</h3>
+                            <div class="form-group">
+                                <label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="newContactNotif" checked>
+                                        <span class="slider"></span>
+                                    </div>
+                                    New Contact Inquiries
+                                </label>
+                                <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Receive email notifications when new contact forms are submitted.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="blogCommentNotif">
+                                        <span class="slider"></span>
+                                    </div>
+                                    Blog Comments
+                                </label>
+                                <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Get notified when someone comments on your blog posts.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="weeklyReportNotif" checked>
+                                        <span class="slider"></span>
+                                    </div>
+                                    Weekly Reports
+                                </label>
+                                <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Receive weekly analytics and activity reports.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Notification Recipients</h3>
+                            <div class="form-group">
+                                <label for="notificationEmail">Primary Email</label>
+                                <input type="email" id="notificationEmail" value="admin@theweddingcompany.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="ccEmails">CC Recipients (comma-separated)</label>
+                                <input type="text" id="ccEmails" placeholder="email1@domain.com, email2@domain.com">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Notification Settings
+                        </button>
+                    </div>
+
+                    <!-- Backup Settings -->
+                    <div class="tab-panel" id="backup">
+                        <div class="settings-section">
+                            <h3 class="section-title">Automatic Backups</h3>
+                            <div class="form-group">
+                                <label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="autoBackup" checked>
+                                        <span class="slider"></span>
+                                    </div>
+                                    Enable Automatic Backups
+                                </label>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="backupFrequency">Backup Frequency</label>
+                                    <select id="backupFrequency">
+                                        <option value="daily" selected>Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="backupTime">Backup Time</label>
+                                    <input type="time" id="backupTime" value="02:00">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Manual Backup</h3>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                <button class="btn btn-primary" id="createBackup">
+                                    <i class="fas fa-download"></i>
+                                    Create Backup Now
+                                </button>
+                                <button class="btn btn-secondary" id="uploadBackup">
+                                    <i class="fas fa-upload"></i>
+                                    Restore from Backup
+                                </button>
+                            </div>
+                            <input type="file" id="backupFile" accept=".zip,.sql" style="display: none;">
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Recent Backups</h3>
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <div class="backup-date">January 30, 2026 02:00 AM</div>
+                                    <div class="backup-size">Size: 15.2 MB</div>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-secondary btn-small">Download</button>
+                                    <button class="btn btn-danger btn-small">Delete</button>
+                                </div>
+                            </div>
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <div class="backup-date">January 29, 2026 02:00 AM</div>
+                                    <div class="backup-size">Size: 14.8 MB</div>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-secondary btn-small">Download</button>
+                                    <button class="btn btn-danger btn-small">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Backup Settings
+                        </button>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div class="tab-panel" id="security">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Security Notice:</strong> Regular password updates and secure authentication are essential for protecting your website.
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Password Policy</h3>
+                            <div class="form-group">
+                                <label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="requireStrongPassword" checked>
+                                        <span class="slider"></span>
+                                    </div>
+                                    Require Strong Passwords
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordExpiry">Password Expiry (days)</label>
+                                <input type="number" id="passwordExpiry" value="90" min="30" max="365">
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Change Admin Password</h3>
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" id="confirmPassword">
+                            </div>
+                            <button class="btn btn-danger">
+                                <i class="fas fa-key"></i>
+                                Update Password
+                            </button>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">Login Security</h3>
+                            <div class="form-group">
+                                <label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="twoFactorAuth">
+                                        <span class="slider"></span>
+                                    </div>
+                                    Enable Two-Factor Authentication
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="sessionTimeout">Session Timeout (minutes)</label>
+                                <input type="number" id="sessionTimeout" value="60" min="15" max="480">
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3 class="section-title">System Activity</h3>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">15</div>
+                                    <div class="stat-label">Login Attempts Today</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">Failed Logins</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">1h 45m</div>
+                                    <div class="stat-label">Current Session</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">Jan 30</div>
+                                    <div class="stat-label">Last Password Change</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Security Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Check authentication
+        if (localStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs and panels
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                button.classList.add('active');
+                
+                // Show corresponding panel
+                const tabId = button.dataset.tab;
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Color picker functionality
+        document.querySelectorAll('input[type="color"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const colorValue = e.target.value;
+                const preview = e.target.parentNode.querySelector('.color-preview');
+                const textSpan = e.target.parentNode.querySelector('span');
+                
+                if (preview) preview.style.backgroundColor = colorValue;
+                if (textSpan) textSpan.textContent = colorValue;
+            });
+        });
+
+        // Backup functionality
+        document.getElementById('createBackup').addEventListener('click', () => {
+            alert('Creating backup... This may take a few minutes.');
+            // In a real application, this would trigger a backup process
+        });
+
+        document.getElementById('uploadBackup').addEventListener('click', () => {
+            document.getElementById('backupFile').click();
+        });
+
+        document.getElementById('backupFile').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (confirm(`Restore from backup file: ${file.name}? This will overwrite current data.`)) {
+                    alert('Restoring from backup...');
+                    // In a real application, this would upload and restore from backup
+                }
+            }
+        });
+
+        // Form submissions
+        document.querySelectorAll('.btn-primary').forEach(button => {
+            if (button.textContent.includes('Save')) {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Settings saved successfully!');
+                    // In a real application, this would save settings to backend
+                });
+            }
+        });
+
+        // Password change
+        document.querySelector('.btn-danger').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Please fill in all password fields.');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('New password and confirmation do not match.');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                alert('Password must be at least 8 characters long.');
+                return;
+            }
+            
+            alert('Password updated successfully!');
+            // Clear fields
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        });
+    </script>
+</body>
+</html>

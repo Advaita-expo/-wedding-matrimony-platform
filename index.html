@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding Company - Professional Wedding Planning Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(196, 30, 58, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(196, 30, 58, 0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+.emphasis-blue {
+    color: var(--accent-blue);
+    font-style: italic;
+    font-weight: 500;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: #fff;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(201, 169, 97, 0.02) 10px,
+            rgba(201, 169, 97, 0.02) 20px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeInDown 0.6s ease-out;
+    text-shadow: 1px 1px 2px rgba(201, 169, 97, 0.3);
+}
+
+.logo i {
+    /* Removed floating animation */
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s, text-shadow 0.3s;
+    position: relative;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-family: 'Georgia', serif;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 2;
+    animation: fadeInDown 0.8s ease-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    font-weight: 300;
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content .cta-button {
+    animation: scaleIn 0.6s ease-out 0.4s backwards;
+}
+
+.cta-button {
+    background: var(--accent-gold);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(196, 30, 58, 0.3);
+    background: #c89866;
+}
+
+/* Features Section */
+.features {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--light-color) 0%, var(--royal-cream) 100%);
+    position: relative;
+}
+
+.features::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--royal-gold), var(--primary-color));
+}
+
+.features h2,
+.services-overview h2,
+.testimonials h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--heading-color);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    animation: fadeInDown 0.8s ease-out;
+    position: relative;
+    padding-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.features h2::before,
+.services-overview h2::before,
+.testimonials h2::before {
+    content: '✦';
+    display: block;
+    font-size: 1.5rem;
+    color: var(--royal-gold);
+    margin-bottom: 15px;
+}
+
+.features h2::after,
+.services-overview h2::after,
+.testimonials h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, transparent, var(--royal-gold), var(--primary-color), var(--royal-gold), transparent);
+    border-radius: 2px;
+}
+
+.features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.feature-card {
+    background: linear-gradient(135deg, #fff 0%, rgba(244, 232, 216, 0.3) 100%);
+    padding: 40px 30px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(201, 169, 97, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    border-top: 4px solid var(--primary-color);
+    border-left: 2px solid var(--royal-gold);
+    border-right: 2px solid var(--royal-gold);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    max-width: 280px;
+    min-width: 250px;
+    min-height: 350px;
+}
+
+/* Initial state - cards are hidden and positioned for animation */
+.feature-card {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 0.8s ease-out;
+}
+
+.feature-card:nth-child(3),
+.feature-card:nth-child(4) {
+    transform: translateX(100px);
+}
+
+/* Animation classes applied via JavaScript on scroll */
+.feature-card.animate-left {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.feature-card.animate-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--royal-gold), var(--primary-color));
+    border-radius: 4px 4px 0 0;
+}
+
+.feature-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(196, 30, 58, 0.25);
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+}
+
+.feature-card i {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, rgba(196, 30, 58, 0.08), rgba(201, 169, 97, 0.08));
+    border-radius: 50%;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    border: 2px solid rgba(201, 169, 97, 0.3);
+    margin-bottom: 20px;
+}
+
+.feature-card:hover i {
+    transform: scale(1.15);
+    background: linear-gradient(135deg, rgba(196, 30, 58, 0.15), rgba(201, 169, 97, 0.15));
+}
+
+.feature-card h3 {
+    margin: 0 0 15px 0;
+    color: var(--heading-color);
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.3;
+}
+
+.feature-card h3 .emphasis-blue {
+    font-size: 1.3rem;
+}
+
+.feature-card p {
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Services Overview */
+.services-overview {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #fff 0%, rgba(244, 232, 216, 0.5) 100%);
+    position: relative;
+}
+
+.services-overview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--royal-gold), var(--primary-color));
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+    padding: 0 10px;
+}
+
+.service-item {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(201, 169, 97, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeInUp 0.6s ease-out;
+    border: 2px solid rgba(201, 169, 97, 0.2);
+    border-top: 4px solid var(--primary-color);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+}
+
+.service-item::before {
+    content: '✦';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--royal-gold);
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+.service-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(196, 30, 58, 0.2);
+}
+
+.service-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+
+.service-item:hover img {
+    transform: scale(1.05);
+}
+
+.service-content {
+    flex: 1;
+    padding: 25px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.service-item h3 {
+    margin: 0 0 15px 0;
+    color: var(--heading-color);
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.3;
+}
+
+.service-item p {
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+.view-all-btn {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 30px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.view-all-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+}
+
+.view-all-btn:hover {
+    background: #a01730;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.view-all-btn:hover::before {
+    left: 100%;
+}
+
+/* Decorative Divider */
+.decorative-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, var(--royal-cream) 0%, #fff 50%, var(--royal-cream) 100%);
+    position: relative;
+}
+
+.decorative-divider::before,
+.decorative-divider::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--royal-gold), var(--primary-color), var(--royal-gold), transparent);
+    margin: 0 30px;
+}
+
+.decorative-divider img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Statistics Section */
+.stats {
+    background: linear-gradient(135deg, var(--dark-color), #5a1428);
+    color: white;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(196, 30, 58, 0.1), transparent);
+    border-radius: 50%;
+}
+
+.stats .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-item {
+    animation: scaleIn 0.6s ease-out;
+}
+
+.stat-item h3 {
+    font-size: 2.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.stat-item p {
+    color: #ddd;
+    font-weight: 500;
+}
+
+/* Partners Section */
+.partners {
+    padding: 80px 20px;
+    background: url('https://mir-s3-cdn-cf.behance.net/project_modules/hd/a107b5131490683.6195fde2b67a6.gif') center center,
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(244, 232, 216, 0.9) 100%);
+    background-size: cover, cover;
+    background-attachment: fixed, scroll;
+    position: relative;
+    overflow: hidden;
+}
+
+.partners::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+
+.partners::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--royal-gold), var(--primary-color));
+    z-index: 2;
+}
+
+.partners h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    color: var(--heading-color);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    position: relative;
+    padding-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
+
+.partners h2::before {
+    content: '✦';
+    display: block;
+    font-size: 1.5rem;
+    color: var(--royal-gold);
+    margin-bottom: 15px;
+}
+
+.partners h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, transparent, var(--royal-gold), var(--primary-color), var(--royal-gold), transparent);
+    border-radius: 2px;
+}
+
+.partners-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+}
+
+.partner-logo {
+    opacity: 1;
+    transform: translateX(0);
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(201, 169, 97, 0.2);
+    border: 3px solid rgba(201, 169, 97, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.partner-logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--royal-gold));
+    border-radius: 3px 3px 0 0;
+}
+
+.partner-logo:hover {
+    transform: translateY(-8px) scale(1.08);
+    box-shadow: 0 20px 45px rgba(196, 30, 58, 0.25);
+    border-color: var(--royal-gold);
+}
+
+.partner-logo img {
+    max-width: 130px;
+    max-height: 90px;
+    object-fit: contain;
+    filter: grayscale(20%);
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.partner-logo:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+.partner-logo.animate-slide {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Testimonials */
+.testimonials {
+    padding: 100px 20px;
+    background: url('https://mir-s3-cdn-cf.behance.net/project_modules/source/9f73e921752073.56314ddecace8.gif') center center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 1;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 35px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeInUp 0.6s ease-out;
+    position: relative;
+    border-left: 4px solid var(--primary-color);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(196, 30, 58, 0.15);
+}
+
+.testimonial-card .stars {
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.testimonial-card p {
+    font-style: italic;
+    margin-bottom: 15px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.testimonial-card h4 {
+    color: var(--heading-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* CTA Section */
+.cta-section {
+    background: url('https://mir-s3-cdn-cf.behance.net/project_modules/source/58a0e521752073.56306f80c4eb1.gif') center center;
+    background-size: cover;
+    color: white;
+    padding: 120px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+    border-top: 4px solid var(--royal-gold);
+    border-bottom: 4px solid var(--royal-gold);
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+}
+
+.cta-section h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 2.5rem;
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.cta-section p {
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.95);
+    position: relative;
+    z-index: 1;
+}
+
+.cta-section .cta-button {
+    position: relative;
+    z-index: 2;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 50px 20px 20px;
+    border-top: 4px solid var(--royal-gold);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--royal-gold), transparent, var(--royal-gold));
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+    font-weight: 600;
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--accent-gold);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.footer-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.footer-section button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    text-align: center;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero {
+        min-height: 400px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .features h2,
+    .services-overview h2,
+    .testimonials h2 {
+        font-size: 1.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-heart"></i> The Wedding Company
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="Legally Yours ｜ Riddhi & Jugal ｜ Umaid Bhawan Palace, Jodhpur - WeddingNama by Ankita and Akash (720p, h264).mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Find Your <span class="emphasis-blue">Perfect Life Partner</span></h1>
+            <p>Matrimony Services with <span class="emphasis-blue">Matchmaking, Background Verification & Horoscope Analysis</span></p>
+            <button class="cta-button">Start Your Journey</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose Us for Matrimony?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-heart"></i>
+                    <h3><span class="emphasis-blue">Smart</span> Matchmaking</h3>
+                    <p>Advanced algorithm-based matching system to find your compatible life partner</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3><span class="emphasis-blue">Verified</span> Profiles</h3>
+                    <p>Comprehensive background checking and verification for complete peace of mind</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-star"></i>
+                    <h3><span class="emphasis-blue">Horoscope</span> Compatibility</h3>
+                    <p>Expert astrological analysis and compatibility reports by certified astrologers</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3><span class="emphasis-blue">100%</span> Confidential</h3>
+                    <p>Your personal information is completely secure and never shared without consent</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services-overview">
+        <div class="container">
+            <h2>Our Matrimony Services</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&h=300&fit=crop" alt="Matchmaking">
+                    <div class="service-content">
+                        <h3>Smart Matchmaking</h3>
+                        <p>Personalized matching based on preferences, values, education, and lifestyle compatibility</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop" alt="Background Checking">
+                    <div class="service-content">
+                        <h3>Background Verification</h3>
+                        <p>Comprehensive verification including employment, education, and family background checks</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <img src="https://images.unsplash.com/photo-1559289801-4405541c9c7e?w=500&h=300&fit=crop" alt="Horoscope">
+                    <div class="service-content">
+                        <h3>Horoscope Compatibility</h3>
+                        <p>Expert astrological analysis and Kundli matching by certified Vedic astrologers</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop" alt="Counseling">
+                    <div class="service-content">
+                        <h3>Professional Counseling</h3>
+                        <p>Expert relationship counseling and guidance from experienced matrimony advisors</p>
+                    </div>
+                </div>
+            </div>
+            <a href="services.html" class="view-all-btn">View All Services</a>
+        </div>
+    </section>
+
+    <!-- Decorative Divider -->
+    <div class="decorative-divider">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOCuyOoDTl8SSgKuH--D6ozYH1-MUgYIQPNw&s" alt="Decorative Element">
+    </div>
+
+    <!-- Statistics Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stat-item">
+                <h3>50,000+</h3>
+                <p>Happy Couples Matched</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Verified Profiles</p>
+            </div>
+            <div class="stat-item">
+                <h3>98%</h3>
+                <p>Horoscope Compatibility Success</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Dedicated Support</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners">
+        <div class="container">
+            <h2>Partnered with the best in the industry</h2>
+            <div class="partners-grid">
+                <div class="partner-logo" data-delay="0">
+                    <img src="https://cdn.iconscout.com/icon/free/png-256/free-taj-hotel-icon-svg-download-png-10673444.png?f=webp" alt="Taj Hotels">
+                </div>
+                <div class="partner-logo" data-delay="200">
+                    <img src="https://logos-world.net/wp-content/uploads/2020/11/Marriott-International-Logo-2016-present.jpg" alt="Marriott International">
+                </div>
+                <div class="partner-logo" data-delay="400">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTBJQp2soxwHbgN9ECSKKt75uSf90zm6QiIw&s" alt="Partner Hotel">
+                </div>
+                <div class="partner-logo" data-delay="600">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz3hErxGH0RJeS3fKLPvzBJloT0l_AoxPgXw&s" alt="Partner Hotel">
+                </div>
+                <div class="partner-logo" data-delay="800">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/St._Regis_Hotels_%26_Resorts_logo.svg/1280px-St._Regis_Hotels_%26_Resorts_logo.svg.png" alt="St. Regis Hotels">
+                </div>
+                <div class="partner-logo" data-delay="1000">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCUPwBum0XsqUJsj07vCW7CzsppTyKvAT-qA&s" alt="Partner Hotel">
+                </div>
+                <div class="partner-logo" data-delay="1200">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOluE7HdPsDbfOhI2nmpyp_YKyCSd9YpMqYA&s" alt="Partner Hotel">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Success Stories</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The matchmaking algorithm found my perfect partner! The background verification gave me complete confidence, and the horoscope compatibility was spot on."</p>
+                    <h4>- Priya & Arjun</h4>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Excellent service! The team was professional and the whole process was seamless. We couldn't have found each other without their platform."</p>
+                    <h4>- Sarah & Mike</h4>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The horoscope matching and background checks provided peace of mind. Highly recommend this matrimony service to anyone serious about finding their soulmate."</p>
+                    <h4>- Neha & Rohit</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Find Your <span class="emphasis-blue">Perfect Match</span>?</h2>
+            <p>Join thousands of happy couples who found their soulmates through <span class="emphasis-blue">verified matchmaking and compatibility analysis</span></p>
+            <button class="cta-button">Register Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Wedding Company</h3>
+                    <p>Premium matrimony services with smart matchmaking, background verification, and horoscope compatibility analysis.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: info@theweddingcompany.com</p>
+                    <p>Phone: +91 (800) 123-4567</p>
+                    <p>Address: 123 Wedding Plaza, Event City, EC 12345</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Wedding Company - Matrimony Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const cardIndex = Array.from(card.parentElement.children).indexOf(card) + 1;
+                    
+                    // Add animation class based on card position
+                    if (cardIndex <= 2) {
+                        card.classList.add('animate-left');
+                    } else {
+                        card.classList.add('animate-right');
+                    }
+                    
+                    // Stop observing this card once animated
+                    observer.unobserve(card);
+                }
+            });
+        }, observerOptions);
+
+        // Start observing cards when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Partners logo animation observer
+            const partnerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const logo = entry.target;
+                        const delay = parseInt(logo.getAttribute('data-delay')) || 0;
+                        
+                        setTimeout(() => {
+                            logo.classList.add('animate-slide');
+                        }, delay);
+                        
+                        partnerObserver.unobserve(logo);
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe partner logos
+            const partnerLogos = document.querySelectorAll('.partner-logo');
+            partnerLogos.forEach(logo => {
+                partnerObserver.observe(logo);
+            });
+        });
+    </script>
+</body>
+</html>

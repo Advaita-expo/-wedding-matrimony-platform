@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - The Wedding Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+.emphasis-blue {
+    color: var(--accent-blue);
+    font-style: italic;
+    font-weight: 500;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: #fff;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(201, 169, 97, 0.02) 10px,
+            rgba(201, 169, 97, 0.02) 20px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+.page-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.page-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-content {
+    padding: 60px 20px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.gallery-item {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    height: 300px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.view-all-btn {
+    display: inline-block;
+    background: var(--accent-gold);
+    color: white;
+    padding: 12px 30px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.view-all-btn:hover {
+    background: #c89866;
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 40px 20px 20px;
+    border-top: 4px solid var(--royal-gold);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--royal-gold), transparent, var(--royal-gold));
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.footer-section a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--secondary-color);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.footer-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.footer-section button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    text-align: center;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .page-hero h1 {
+        font-size: 1.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-heart"></i> The Wedding Company
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Success <span class="emphasis-blue">Stories</span></h1>
+            <p>Celebrate the <span class="emphasis-blue">love stories</span> we've helped create</p>
+        </div>
+    </section>
+
+    <!-- Gallery Content -->
+    <section class="page-content">
+        <div class="container">
+            <!-- Filter Buttons -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <button style="background: var(--primary-color); color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px; cursor: pointer; font-weight: bold;">All Stories</button>
+                <button style="background: #ddd; color: #333; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px; cursor: pointer; font-weight: bold;">Matched</button>
+                <button style="background: #ddd; color: #333; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px; cursor: pointer; font-weight: bold;">Engaged</button>
+                <button style="background: #ddd; color: #333; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px; cursor: pointer; font-weight: bold;">Wedded</button>
+                <button style="background: #ddd; color: #333; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px; cursor: pointer; font-weight: bold;">Testimonials</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop" alt="Happy Couple">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400&h=300&fit=crop" alt="Couple Portrait">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1515934751596-a598e5de0ab3?w=400&h=300&fit=crop" alt="Wedding Celebration">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop" alt="Bride & Groom">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516969750601-b06601ef343d?w=400&h=300&fit=crop" alt="Love Story">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519225421221-46a2bb520220?w=400&h=300&fit=crop" alt="Romantic Moment">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=300&fit=crop" alt="Wedding Elegance">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&h=300&fit=crop" alt="Couple Bliss">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop" alt="Marriage Joy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523438097914-512b08d7d0ff?w=400&h=300&fit=crop" alt="Happy Moments">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop" alt="Together Forever">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519225421221-46a2bb520220?w=400&h=300&fit=crop" alt="Perfect Match">
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div style="background: var(--light-color); padding: 40px; border-radius: 8px; margin-top: 60px; text-align: center;">
+                <h2 style="margin-bottom: 30px;">Our Matrimony Success Metrics</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+                    <div>
+                        <h3 style="color: var(--primary-color); font-size: 2rem;">50,000+</h3>
+                        <p>Happy Couples Matched</p>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--primary-color); font-size: 2rem;">10+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--primary-color); font-size: 2rem;">100%</h3>
+                        <p>Verified Profiles</p>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--primary-color); font-size: 2rem;">98%</h3>
+                        <p>Client Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin-top: 60px;">
+                <h2 style="margin-bottom: 20px;">Be Part of Our Next Success Story</h2>
+                <p style="margin-bottom: 30px; font-size: 1.1rem;">Find your perfect match today with our verified matrimony platform</p>
+                <a href="contact.html" class="view-all-btn" style="padding: 15px 40px; font-size: 1.1rem;">Register Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Wedding Company</h3>
+                    <p>Premium matrimony services with smart matchmaking, background verification, and horoscope compatibility analysis.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: info@theweddingcompany.com</p>
+                    <p>Phone: +91 (800) 123-4567</p>
+                    <p>Address: 123 Wedding Plaza, Event City, EC 12345</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Wedding Company - Matrimony Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

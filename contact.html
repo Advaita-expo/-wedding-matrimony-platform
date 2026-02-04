@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - The Wedding Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+.emphasis-blue {
+    color: var(--accent-blue);
+    font-style: italic;
+    font-weight: 500;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: #fff;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(201, 169, 97, 0.02) 10px,
+            rgba(201, 169, 97, 0.02) 20px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+.page-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.page-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-content {
+    padding: 60px 20px;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 40px auto;
+    background: var(--light-color);
+    padding: 40px;
+    border-radius: var(--border-radius);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(196, 30, 58, 0.3);
+}
+
+.submit-btn {
+    width: 100%;
+    background: var(--accent-gold);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: #c89866;
+}
+
+.cta-button {
+    background: var(--accent-gold);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: #c89866;
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 40px 20px 20px;
+    border-top: 4px solid var(--royal-gold);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--royal-gold), transparent, var(--royal-gold));
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.footer-section a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--secondary-color);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.footer-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.footer-section button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    text-align: center;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .page-hero h1 {
+        font-size: 1.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-heart"></i> The Wedding Company
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Get in Touch With <span class="emphasis-blue">Us</span></h1>
+            <p>We're here to help you plan your <span class="emphasis-blue">perfect wedding</span></p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="page-content">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px;">
+                <!-- Contact Information -->
+                <div>
+                    <h2 style="margin-bottom: 30px;">Contact Information</h2>
+                    
+                    <div style="margin-bottom: 30px; padding: 20px; background: var(--light-color); border-radius: 8px;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">
+                            <i class="fas fa-map-marker-alt"></i> Address
+                        </h3>
+                        <p>123 Wedding Plaza<br>Event City, EC 12345<br>Country</p>
+                    </div>
+
+                    <div style="margin-bottom: 30px; padding: 20px; background: var(--light-color); border-radius: 8px;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">
+                            <i class="fas fa-phone"></i> Phone
+                        </h3>
+                        <p>+91 (800) 123-4567<br>+91 (800) 123-4568<br>Available 24/7</p>
+                    </div>
+
+                    <div style="margin-bottom: 30px; padding: 20px; background: var(--light-color); border-radius: 8px;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">
+                            <i class="fas fa-envelope"></i> Email
+                        </h3>
+                        <p>info@theweddingcompany.com<br>support@theweddingcompany.com<br>bookings@theweddingcompany.com</p>
+                    </div>
+
+                    <div style="margin-bottom: 30px; padding: 20px; background: var(--light-color); border-radius: 8px;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 10px;">
+                            <i class="fas fa-clock"></i> Business Hours
+                        </h3>
+                        <p>Monday - Friday: 9:00 AM - 8:00 PM<br>Saturday - Sunday: 10:00 AM - 6:00 PM<br>Emergency Support: 24/7</p>
+                    </div>
+
+                    <div style="padding: 20px; background: var(--light-color); border-radius: 8px;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px;">
+                            <i class="fas fa-share-alt"></i> Follow Us
+                        </h3>
+                        <div style="display: flex; gap: 15px; font-size: 1.8rem;">
+                            <a href="#" style="color: var(--primary-color);"><i class="fab fa-facebook"></i></a>
+                            <a href="#" style="color: var(--primary-color);"><i class="fab fa-instagram"></i></a>
+                            <a href="#" style="color: var(--primary-color);"><i class="fab fa-twitter"></i></a>
+                            <a href="#" style="color: var(--primary-color);"><i class="fab fa-pinterest"></i></a>
+                            <a href="#" style="color: var(--primary-color);"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div>
+                    <h2 style="margin-bottom: 30px;">Send us a Message</h2>
+                    <form class="contact-form" style="background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date">Wedding Date</label>
+                            <input type="date" id="date" name="wedding-date">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="guests">Expected Guests</label>
+                            <input type="number" id="guests" name="guests" placeholder="Number of guests">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div style="background: #eee; border-radius: 8px; padding: 20px; margin-bottom: 60px; text-align: center;">
+                <h2 style="margin-bottom: 20px;">Find Us on the Map</h2>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.566646628577!2d72.8479!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce7ed1234567%3A0x1234567890abcdef!2sWedding%20Plaza!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="450" style="border-radius: 8px; border: none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <!-- FAQ Section -->
+            <div style="background: var(--light-color); padding: 40px; border-radius: 8px; margin-bottom: 60px;">
+                <h2 style="text-align: center; margin-bottom: 30px;">Frequently Asked Questions</h2>
+                
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">How far in advance should I book The Wedding Company?</h4>
+                        <p>We recommend booking 6-12 months in advance for the best availability and planning time. However, we can accommodate last-minute bookings based on our schedule.</p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">What does the consultation include?</h4>
+                        <p>Our free consultation includes a detailed discussion of your vision, budget, guest count, date preferences, and an overview of our services and packages.</p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Can you work with my budget?</h4>
+                        <p>Absolutely! We work with couples of all budgets. Our packages start from ₹3,00,000 and can be customized to fit your specific financial requirements.</p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Do you handle destination weddings?</h4>
+                        <p>Yes! We specialize in destination weddings both within the country and internationally. We handle all logistics and vendor coordination.</p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">What is your cancellation policy?</h4>
+                        <p>Our cancellation policy is flexible and fair. Please contact us for specific details based on your booking date and circumstances.</p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Will you be available on the wedding day?</h4>
+                        <p>Yes! Our entire coordination team will be present on your wedding day to manage every aspect and ensure everything runs smoothly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div style="background: linear-gradient(135deg, var(--primary-color), #e91e63); color: white; padding: 40px; border-radius: 8px; text-align: center;">
+                <h2 style="color: white; margin-bottom: 20px;">Let's Create Your Perfect Wedding</h2>
+                <p style="margin-bottom: 30px; font-size: 1.1rem;">Our team is ready to help you turn your dream wedding into reality</p>
+                <button style="background: var(--secondary-color); color: var(--primary-color); padding: 15px 40px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1.1rem;">Book Your Free Consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Wedding Company</h3>
+                    <p>Making dreams come true, one wedding at a time.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: info@theweddingcompany.com</p>
+                    <p>Phone: +91 (800) 123-4567</p>
+                    <p>Address: 123 Wedding Plaza, Event City, EC 12345</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Wedding Company. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

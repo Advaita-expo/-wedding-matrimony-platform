@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Stories - The Wedding Company Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+.emphasis-blue {
+    color: var(--accent-blue);
+    font-style: italic;
+    font-weight: 500;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: #fff;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(201, 169, 97, 0.02) 10px,
+            rgba(201, 169, 97, 0.02) 20px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+.page-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.page-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-content {
+    padding: 60px 20px;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.blog-card {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.blog-card-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+}
+
+.blog-card-content {
+    padding: 20px;
+}
+
+.blog-card-date {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.blog-card h3 {
+    color: var(--heading-color);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.blog-card p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.read-more-btn {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 40px 20px 20px;
+    border-top: 4px solid var(--royal-gold);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--royal-gold), transparent, var(--royal-gold));
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--accent-gold);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.footer-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.footer-section button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    text-align: center;
+    color: #999;
+}
+
+.cta-button {
+    background: var(--accent-gold);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: #c89866;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .page-hero h1 {
+        font-size: 1.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-heart"></i> The Wedding Company
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Matrimony Stories & <span class="emphasis-blue">Love Chronicles</span></h1>
+            <p>Real stories from our matched couples - The <span class="emphasis-blue">beautiful journey</span> from meeting to marriage</p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog posts will be loaded here from localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section style="background: linear-gradient(135deg, var(--primary-color), #e91e63); color: white; padding: 60px 20px; margin-top: 60px;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white; margin-bottom: 20px;">Join Our Matrimony Community</h2>
+            <p style="margin-bottom: 20px;">Subscribe to our newsletter for exclusive success stories, matchmaking tips, and horoscope insights</p>
+            <div style="display: flex; max-width: 500px; margin: 0 auto; gap: 10px;">
+                <input type="email" placeholder="Enter your email" style="flex: 1; padding: 12px; border: none; border-radius: 4px; font-size: 1rem;">
+                <button style="background: var(--secondary-color); color: var(--primary-color); padding: 12px 30px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Subscribe</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Wedding Company</h3>
+                    <p>Premium matrimony services with smart matchmaking, background verification, and horoscope compatibility analysis.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: info@theweddingcompany.com</p>
+                    <p>Phone: +91 (800) 123-4567</p>
+                    <p>Address: 123 Wedding Plaza, Event City, EC 12345</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Wedding Company - Matrimony Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Load blog posts from localStorage (created by admin panel)
+        function loadBlogPosts() {
+            const storedData = localStorage.getItem('weddingCMS_data');
+            const blogGrid = document.getElementById('blogGrid');
+            
+            if (!storedData) {
+                blogGrid.innerHTML = '<p style="text-align: center; padding: 2rem; grid-column: 1/-1; color: #999;">No blog posts published yet. Check back soon!</p>';
+                return;
+            }
+            
+            try {
+                const data = JSON.parse(storedData);
+                const posts = data.blogPosts || [];
+                
+                // Filter only published posts
+                const publishedPosts = posts.filter(post => post.status === 'published');
+                
+                if (publishedPosts.length === 0) {
+                    blogGrid.innerHTML = '<p style="text-align: center; padding: 2rem; grid-column: 1/-1; color: #999;">No published blog posts yet. Check back soon!</p>';
+                    return;
+                }
+                
+                blogGrid.innerHTML = '';
+                
+                publishedPosts.forEach(post => {
+                    const postDate = new Date(post.created_at).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    
+                    const postCard = document.createElement('div');
+                    postCard.className = 'blog-card';
+                    postCard.innerHTML = `
+                        <div style="height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; overflow: hidden; background: #ccc;">
+                            ${post.featured_image ? `<img src="${post.featured_image}" alt="${post.title}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div style="background: linear-gradient(135deg, #c41e3a, #7a1428); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-newspaper"></i></div>`}
+                        </div>
+                        <div class="blog-card-content">
+                            <div class="blog-card-date">${post.category.toUpperCase()} | ${postDate}</div>
+                            <h3>${post.title}</h3>
+                            <p>${post.excerpt}</p>
+                            <a href="#" class="read-more-btn">Read Full Story →</a>
+                        </div>
+                    `;
+                    blogGrid.appendChild(postCard);
+                });
+            } catch (e) {
+                console.error('Error loading blog posts:', e);
+                blogGrid.innerHTML = '<p style="text-align: center; padding: 2rem; grid-column: 1/-1; color: red;">Error loading blog posts</p>';
+            }
+        }
+        
+        // Load posts when page loads
+        window.addEventListener('load', loadBlogPosts);
+    </script>

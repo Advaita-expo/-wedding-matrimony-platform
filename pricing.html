@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Packages - The Wedding Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #c41e3a;
+    --secondary-color: #e8b4ba;
+    --dark-color: #7a1428;
+    --light-color: #faf8f8;
+    --text-color: #3d3d3d;
+    --text-light: #555555;
+    --heading-color: #5a1428;
+    --border-radius: 6px;
+    --accent-gold: #d4a574;
+    --accent-blue: #FFD700;
+    --royal-gold: #C9A961;
+    --royal-cream: #F4E8D8;
+    --royal-dark: #4a0e0e;
+}
+
+.emphasis-blue {
+    color: var(--accent-blue);
+    font-style: italic;
+    font-weight: 500;
+}
+
+body {
+    font-family: 'Georgia', 'Garamond', serif;
+    line-height: 1.8;
+    color: var(--text-color);
+    background-color: #fff;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(201, 169, 97, 0.02) 10px,
+            rgba(201, 169, 97, 0.02) 20px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--royal-gold);
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+.page-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+.page-hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.page-content {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #fff 0%, rgba(244, 232, 216, 0.3) 100%);
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.pricing-card {
+    background: linear-gradient(135deg, #fff 0%, rgba(244, 232, 216, 0.3) 100%);
+    border-radius: var(--border-radius);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(201, 169, 97, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    border: 3px solid transparent;
+    border-top: 4px solid var(--primary-color);
+    border-left: 2px solid var(--royal-gold);
+    border-right: 2px solid var(--royal-gold);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--royal-gold), var(--primary-color));
+    border-radius: 4px 4px 0 0;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(196, 30, 58, 0.25);
+    background: linear-gradient(135deg, #fff 0%, var(--royal-cream) 100%);
+}
+
+.pricing-card.featured {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, #fff, var(--royal-cream));
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(196, 30, 58, 0.2);
+}
+
+.price-tag {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin: 20px 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(201, 169, 97, 0.2);
+}
+
+.pricing-card ul {
+    list-style: none;
+    text-align: left;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.pricing-card li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.pricing-card li:before {
+    content: "✓ ";
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.pricing-card .cta-button {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.cta-button {
+    background: var(--accent-gold);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+    z-index: 1;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(196, 30, 58, 0.3);
+    background: #c89866;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.footer {
+    background: linear-gradient(135deg, var(--royal-dark) 0%, var(--dark-color) 50%, #2a0a0a 100%);
+    color: white;
+    padding: 40px 20px 20px;
+    border-top: 4px solid var(--royal-gold);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--royal-gold), transparent, var(--royal-gold));
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--accent-gold);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.footer-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.footer-section button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    text-align: center;
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .page-hero h1 {
+        font-size: 1.8rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-heart"></i> The Wedding Company
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html" class="active">Pricing</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Matrimony Membership <span class="emphasis-blue">Plans</span></h1>
+            <p>Affordable membership options designed to <span class="emphasis-blue">connect you faster</span></p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="page-content">
+        <div class="container">
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 40px; color: #666;">
+                Choose the perfect membership plan to find your ideal match with premium features and dedicated support
+            </p>
+
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="pricing-card">
+                    <h2>BASIC</h2>
+                    <div class="price-tag">₹9,999</div>
+                    <p style="color: #999; margin-bottom: 20px;">3 Months</p>
+                    <ul>
+                        <li>100% Verified Profiles</li>
+                        <li>Smart Matchmaking Algorithm</li>
+                        <li>5 Daily Match Recommendations</li>
+                        <li>Profile Views (Limited)</li>
+                        <li>Basic Messaging</li>
+                        <li>Profile Creation Assistance</li>
+                        <li>Email Support</li>
+                        <li>Safety Guidelines</li>
+                    </ul>
+                    <button class="cta-button">Start Matching</button>
+                </div>
+
+                <!-- Standard Plan (Featured) -->
+                <div class="pricing-card featured">
+                    <div style="background: var(--primary-color); color: white; padding: 10px; border-radius: 4px; margin-bottom: 20px; text-align: center; font-weight: bold;">
+                        MOST POPULAR
+                    </div>
+                    <h2>STANDARD</h2>
+                    <div class="price-tag">₹17,999</div>
+                    <p style="color: #999; margin-bottom: 20px;">6 Months</p>
+                    <ul>
+                        <li>100% Verified Profiles</li>
+                        <li>Priority Match Recommendations</li>
+                        <li>Unlimited Daily Matches</li>
+                        <li>Unlimited Profile Views</li>
+                        <li>Unlimited Messaging</li>
+                        <li>Horoscope Compatibility Reports</li>
+                        <li>Professional Profile Makeover</li>
+                        <li>Priority Customer Support</li>
+                        <li>Exclusive Events Access</li>
+                        <li>Relationship Counseling (3 sessions)</li>
+                    </ul>
+                    <button class="cta-button">Start Matching</button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="pricing-card">
+                    <h2>PREMIUM</h2>
+                    <div class="price-tag">₹29,999</div>
+                    <p style="color: #999; margin-bottom: 20px;">12 Months</p>
+                    <ul>
+                        <li>100% Verified Profiles</li>
+                        <li>VIP Match Recommendations</li>
+                        <li>Unlimited Matches & Views</li>
+                        <li>Unlimited Premium Messaging</li>
+                        <li>Video Call Feature</li>
+                        <li>Complete Horoscope Analysis</li>
+                        <li>Professional Photo Sessions</li>
+                        <li>Dedicated Matrimony Advisor</li>
+                        <li>Priority Event Invitations</li>
+                        <li>Unlimited Counseling Sessions</li>
+                        <li>Advanced Search Filters</li>
+                        <li>Monthly Success Stories Access</li>
+                    </ul>
+                    <button class="cta-button">Start Matching</button>
+                </div>
+
+                <!-- Elite Plan -->
+                <div class="pricing-card">
+                    <h2>ELITE</h2>
+                    <div class="price-tag">₹49,999</div>
+                    <p style="color: #999; margin-bottom: 20px;">12 Months + Exclusive</p>
+                    <ul>
+                        <li>100% Verified Profiles</li>
+                        <li>Elite VIP Matching Service</li>
+                        <li>Personal Matchmaker Assignment</li>
+                        <li>Unlimited All Features</li>
+                        <li>Video Calls & Conferencing</li>
+                        <li>Vedic Astrology Consultation</li>
+                        <li>Family Background Reports</li>
+                        <li>Private Meetings Facilitation</li>
+                        <li>Exclusive Elite Events</li>
+                        <li>Lifetime Advisory Support</li>
+                        <li>Express Matching Track</li>
+                        <li>Premium Success Guarantee</li>
+                        <li>White Glove Service</li>
+                    </ul>
+                    <button class="cta-button">Start Matching</button>
+                </div>
+            </div>
+
+            <!-- Add-On Services -->
+            <div style="margin-top: 80px;">
+                <h2 style="text-align: center; font-size: 2rem; margin-bottom: 40px;">Premium Add-On Services</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Full Horoscope Matching</h4>
+                        <p><strong>₹1,999</strong></p>
+                        <small>Complete Kundli analysis with expert astrologer consultation</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Professional Photo Shoot</h4>
+                        <p><strong>₹2,999</strong></p>
+                        <small>Professional photography session with edited portfolio</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Background Verification</h4>
+                        <p><strong>₹4,999</strong></p>
+                        <small>Comprehensive background check for peace of mind</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Counseling Sessions</h4>
+                        <p><strong>₹999 per session</strong></p>
+                        <small>Professional relationship and matrimony counseling</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Video Intro Creation</h4>
+                        <p><strong>₹2,499</strong></p>
+                        <small>Professional video introduction for your profile</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Express Matching</h4>
+                        <p><strong>₹3,999</strong></p>
+                        <small>Fast-track matching with priority recommendations</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Family Consultation</h4>
+                        <p><strong>₹5,999</strong></p>
+                        <small>Guidance for family discussion and introduction</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Personality Assessment</h4>
+                        <p><strong>₹1,499</strong></p>
+                        <small>Professional personality and compatibility profile</small>
+                    </div>
+                    <div style="background: var(--light-color); padding: 20px; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">Engagement Planning</h4>
+                        <p><strong>₹9,999</strong></p>
+                        <small>Complete engagement event planning and coordination</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Our Pricing -->
+            <div style="background: var(--light-color); padding: 40px; border-radius: 8px; margin-top: 60px;">
+                <h3 style="text-align: center; margin-bottom: 30px;">Why Choose Our Matrimony Service</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">✓ 100% Verified Members</h4>
+                        <p>All profiles undergo thorough verification ensuring you meet authentic, genuine people only.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">✓ Smart AI Matching</h4>
+                        <p>Our advanced algorithm analyzes compatibility to connect you with perfect matches.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">✓ Privacy First</h4>
+                        <p>Your personal information is completely secure with encrypted data protection.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">✓ Expert Guidance</h4>
+                        <p>Professional matrimony advisors and counselors support your journey.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">✓ Flexible Plans</h4>
+                        <p>Multiple membership options to suit every budget and requirement.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">✓ Horoscope Matching</h4>
+                        <p>Vedic astrology analysis and Kundli matching for additional compatibility.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h3 style="text-align: center; margin-bottom: 30px;">Frequently Asked Questions</h3>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">How does the verification process work?</h4>
+                    <p>All members must provide government ID and personal details for verification. We conduct background checks to ensure authenticity and safety.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Can I upgrade my membership?</h4>
+                    <p>Yes! You can upgrade your plan anytime. The price difference will be pro-rated based on your remaining membership period.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">What if I don't find a match?</h4>
+                    <p>We offer a satisfaction guarantee. If you don't find suitable matches, we'll help you refine your profile or explore other options.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Is my data safe?</h4>
+                    <p>Absolutely! We use advanced encryption and privacy controls. Your data is never shared without your explicit consent.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">How does horoscope matching work?</h4>
+                    <p>Our certified Vedic astrologers analyze your Kundli and provide detailed compatibility reports considering planetary positions and birth charts.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">Can I cancel my membership?</h4>
+                    <p>Yes, you can cancel anytime. Refunds are issued as per our refund policy. No questions asked cancellation within 7 days of purchase.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: linear-gradient(135deg, var(--primary-color), #e91e63); color: white; padding: 60px 20px; margin-top: 60px;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white; margin-bottom: 20px;">Ready to Find Your Perfect Match?</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">Join thousands of happy couples. Start your matrimony journey today!</p>
+            <button class="cta-button">Get Started Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Wedding Company</h3>
+                    <p>Premium matrimony services with smart matchmaking, background verification, and horoscope compatibility analysis.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>Email: info@theweddingcompany.com</p>
+                    <p>Phone: +91 (800) 123-4567</p>
+                    <p>Address: 123 Wedding Plaza, Event City, EC 12345</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Wedding Company - Matrimony Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

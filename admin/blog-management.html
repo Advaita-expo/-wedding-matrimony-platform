@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Management - The Wedding Company Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">
+    <script src="auth.js"></script>
+    <script src="data-store.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #c41e3a;
+            --secondary-color: #e8b4ba;
+            --dark-color: #7a1428;
+            --light-color: #faf8f8;
+            --text-color: #3d3d3d;
+            --accent-gold: #d4a574;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--dark-color), var(--primary-color));
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-to-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-to-dashboard:hover {
+            opacity: 0.8;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--dark-color);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-color);
+        }
+
+        .btn-secondary {
+            background: var(--accent-gold);
+            color: white;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .blog-excerpt {
+            color: var(--text-color);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .blog-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-edit {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .blog-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .blog-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        #editor {
+            height: 300px;
+        }
+
+        .image-upload {
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary-color);
+        }
+
+        .image-upload.dragover {
+            border-color: var(--primary-color);
+            background: rgba(196, 30, 58, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="back-to-dashboard">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <h2>Blog Management</h2>
+                <p>Create and manage blog posts</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Blog Management</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="newPostBtn">
+                        <i class="fas fa-plus"></i>
+                        New Post
+                    </button>
+                    <button class="btn btn-secondary" id="manageCategories">
+                        <i class="fas fa-tags"></i>
+                        Categories
+                    </button>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Blog Post Form -->
+                <div class="blog-form" id="blogForm">
+                    <h2 id="formTitle">Create New Blog Post</h2>
+                    <form id="postForm">
+                        <input type="hidden" id="postId" value="">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postTitle">Post Title *</label>
+                                <input type="text" id="postTitle" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="postSlug">URL Slug</label>
+                                <input type="text" id="postSlug" name="slug">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postCategory">Category</label>
+                                <select id="postCategory" name="category">
+                                    <option value="real-weddings">Real Weddings</option>
+                                    <option value="wedding-tips">Wedding Tips</option>
+                                    <option value="trends">Wedding Trends</option>
+                                    <option value="planning-guide">Planning Guide</option>
+                                    <option value="inspiration">Inspiration</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="postStatus">Status</label>
+                                <select id="postStatus" name="status">
+                                    <option value="draft">Draft</option>
+                                    <option value="published">Published</option>
+                                    <option value="scheduled">Scheduled</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postExcerpt">Excerpt</label>
+                            <textarea id="postExcerpt" name="excerpt" rows="3" placeholder="Short description of the post..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Featured Image</label>
+                            <div class="image-upload" id="imageUpload">
+                                <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #ddd; margin-bottom: 1rem;"></i>
+                                <p>Click to upload or drag and drop</p>
+                                <p style="font-size: 0.8rem; color: #999;">PNG, JPG up to 10MB</p>
+                                <input type="file" id="featuredImage" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postContent">Content *</label>
+                            <div id="editor"></div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Save Post
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Blog Posts List -->
+                <div id="blogList">
+                    <h2>All Blog Posts</h2>
+                    <div class="blog-grid" id="blogGrid">
+                        <!-- Blog posts will be loaded here from the database -->
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="storage-utils.js"></script>
+    <script>
+        // Check authentication
+        checkAdminAuth();
+
+        // Initialize Quill editor
+        const quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'align': [] }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            }
+        });
+
+        // Check if cmsData is available
+        if (typeof cmsData === 'undefined') {
+            console.error('Error: cmsData is not defined. data-store.js may not have loaded.');
+            alert('Error: Data storage system failed to load. Please refresh the page.');
+        }
+
+        // Form elements
+        const blogForm = document.getElementById('blogForm');
+        const blogList = document.getElementById('blogList');
+        const newPostBtn = document.getElementById('newPostBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const postForm = document.getElementById('postForm');
+        const formTitle = document.getElementById('formTitle');
+
+        // Show/hide form
+        newPostBtn.addEventListener('click', () => {
+            showForm();
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            hideForm();
+        });
+
+        function showForm(isEdit = false) {
+            blogForm.classList.add('active');
+            blogList.style.display = 'none';
+            
+            if (!isEdit) {
+                formTitle.textContent = 'Create New Blog Post';
+                postForm.reset();
+                quill.setContents([]);
+                document.getElementById('postId').value = '';
+                uploadedImageData = null; // Reset image
+                imageUpload.innerHTML = `
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #ddd; margin-bottom: 1rem;"></i>
+                    <p>Click to upload or drag and drop</p>
+                    <p style="font-size: 0.8rem; color: #999;">PNG, JPG up to 10MB</p>
+                `;
+            }
+        }
+
+        function hideForm() {
+            blogForm.classList.remove('active');
+            blogList.style.display = 'block';
+        }
+
+        // Auto-generate slug from title
+        document.getElementById('postTitle').addEventListener('input', (e) => {
+            const title = e.target.value;
+            const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            document.getElementById('postSlug').value = slug;
+        });
+
+        // Image upload handling
+        const imageUpload = document.getElementById('imageUpload');
+        const fileInput = document.getElementById('featuredImage');
+
+        imageUpload.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        imageUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUpload.classList.add('dragover');
+        });
+
+        imageUpload.addEventListener('dragleave', () => {
+            imageUpload.classList.remove('dragover');
+        });
+
+        imageUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUpload.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleImageUpload(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleImageUpload(e.target.files[0]);
+            }
+        });
+
+        let uploadedImageData = null; // Store the image data URL
+
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    // Resize if larger than 800px
+                    const maxSize = 800;
+                    if (width > maxSize || height > maxSize) {
+                        const ratio = Math.min(maxSize / width, maxSize / height);
+                        width = width * ratio;
+                        height = height * ratio;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Convert to compressed image (JPEG with 0.7 quality)
+                    const compressedData = canvas.toDataURL('image/jpeg', 0.7);
+                    callback(compressedData);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleImageUpload(file) {
+            compressImage(file, (compressedData) => {
+                uploadedImageData = compressedData; // Save the compressed data URL
+                imageUpload.innerHTML = `
+                    <img src="${compressedData}" alt="Featured Image" style="max-width: 100%; max-height: 200px; border-radius: 5px;">
+                    <p style="margin-top: 1rem;">Click to change image</p>
+                `;
+            });
+        }
+
+        // Load blog posts from local storage
+        function loadBlogPosts() {
+            const posts = cmsData.getBlogPosts();
+            displayBlogPosts(posts);
+        }
+
+        function displayBlogPosts(posts) {
+            const postsContainer = document.getElementById('blogGrid');
+            if (!postsContainer) return;
+            
+            postsContainer.innerHTML = '';
+            
+            if (posts.length === 0) {
+                postsContainer.innerHTML = '<p style="text-align: center; padding: 2rem; grid-column: 1/-1;">No blog posts yet. Create your first post!</p>';
+                return;
+            }
+            
+            posts.forEach(post => {
+                const postCard = document.createElement('div');
+                postCard.className = 'blog-card';
+                postCard.dataset.id = post.id;
+                postCard.innerHTML = `
+                    <div class="blog-image">
+                        ${post.featured_image ? `<img src="${post.featured_image}" alt="${post.title}">` : '<i class="fas fa-newspaper"></i>'}
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">${post.title}</h3>
+                        <div class="blog-meta">
+                            <span><i class="fas fa-calendar"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
+                            <span><i class="fas fa-tag"></i> ${post.category}</span>
+                        </div>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <div class="blog-actions">
+                            <button class="btn btn-edit btn-small edit-post" data-id="${post.id}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-delete btn-small delete-post" data-id="${post.id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+                postsContainer.appendChild(postCard);
+            });
+        }
+
+        // Form submission
+        postForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const postId = document.getElementById('postId').value;
+            const isEdit = postId !== '';
+            
+            // Validate required fields
+            const title = document.getElementById('postTitle').value;
+            const slug = document.getElementById('postSlug').value;
+            const excerpt = document.getElementById('postExcerpt').value;
+            
+            if (!title || !slug || !excerpt) {
+                alert('Please fill in all required fields (Title, Slug, Excerpt)');
+                return;
+            }
+            
+            const postData = {
+                title: title,
+                slug: slug,
+                content: JSON.stringify(quill.getContents()),
+                excerpt: excerpt,
+                category: document.getElementById('postCategory').value,
+                status: document.getElementById('postStatus').value,
+                featured_image: uploadedImageData || null // Use the uploaded image data
+            };
+            
+            try {
+                console.log('Saving post:', postData);
+                
+                if (isEdit) {
+                    cmsData.updateBlogPost(parseInt(postId), postData);
+                    alert('Post updated successfully!');
+                } else {
+                    cmsData.createBlogPost(postData);
+                    alert('Post created successfully!');
+                }
+                
+                // Reset form and reload
+                uploadedImageData = null;
+                hideForm();
+                loadBlogPosts();
+            } catch (error) {
+                console.error('Error saving post:', error);
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Edit post functionality
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.edit-post')) {
+                const postId = e.target.closest('.edit-post').dataset.id;
+                editPost(postId);
+            }
+            
+            if (e.target.closest('.delete-post')) {
+                const postId = e.target.closest('.delete-post').dataset.id;
+                deletePost(postId);
+            }
+        });
+
+        function editPost(id) {
+            const post = cmsData.getBlogPost(id);
+            if (post) {
+                showForm(true);
+                formTitle.textContent = 'Edit Blog Post';
+                document.getElementById('postId').value = post.id;
+                document.getElementById('postTitle').value = post.title;
+                document.getElementById('postSlug').value = post.slug;
+                document.getElementById('postCategory').value = post.category;
+                document.getElementById('postStatus').value = post.status;
+                document.getElementById('postExcerpt').value = post.excerpt;
+                
+                // Load existing image if available
+                if (post.featured_image) {
+                    uploadedImageData = post.featured_image;
+                    imageUpload.innerHTML = `
+                        <img src="${post.featured_image}" alt="Featured Image" style="max-width: 100%; max-height: 200px; border-radius: 5px;">
+                        <p style="margin-top: 1rem;">Click to change image</p>
+                    `;
+                } else {
+                    uploadedImageData = null;
+                }
+                
+                try {
+                    quill.setContents(JSON.parse(post.content || '[]'));
+                } catch (e) {
+                    quill.setContents([]);
+                }
+            }
+        }
+
+        function deletePost(id) {
+            if (confirm('Are you sure you want to delete this post?')) {
+                try {
+                    cmsData.deleteBlogPost(id);
+                    alert('Post deleted successfully!');
+                    loadBlogPosts();
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error deleting post');
+                }
+            }
+        }
+
+        // Load posts on page load
+        loadBlogPosts();
+    </script>
+</body>
+</html>
